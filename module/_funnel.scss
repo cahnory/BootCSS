@@ -21,8 +21,8 @@ $funnel--dark:  $color__text!default;
 @for $_length from $funnel--min through $funnel--max {
   #{'.funnel.\--#{$_length}-steps'} {
     @if is-number($funnel--label-width, '%') {
-      $_width:  to-percent(100 / ($funnel--label-width / 100 + $_length - 1));
-      $_margin: to-percent($_width * to-number($funnel--label-width / 200));
+      $_width:  to('%', 100 / ($funnel--label-width / 100 + $_length - 1));
+      $_margin: to('%', $_width * to-number($funnel--label-width / 200));
 
       .funnel__step {
         width: $_width;
@@ -53,7 +53,7 @@ $funnel--dark:  $color__text!default;
     }
     @else {
       $_margin:  $funnel--label-width / 2;
-      $_width:   to-percent(100 / ($_length - 1));
+      $_width:   to('%', 100 / ($_length - 1));
 
       .funnel__step {
         width: $_width;
