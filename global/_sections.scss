@@ -1,0 +1,7 @@
+%section--base, blockquote, figure, figcaption, form, dl, hr, ol, p, pre, ul {
+  @include rem(margin, .1rem * $flow--line-height 0 0);
+}
+figure img {
+  display: block;
+  margin: auto;
+}

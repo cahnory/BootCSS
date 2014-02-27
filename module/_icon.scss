@@ -1,0 +1,73 @@
+@import '../settings/BootCSS';
+
+// Required global options
+$font-face--FontAwesome:  'FontAwesome', 'fontawesome-webfont', 'fontawesomeregular', normal, normal, 'v=4.0.3'!default;
+
+// Module options
+$icon--font-face:   $font-face--FontAwesome!default;
+$icon--font-family: nth($icon--font-face, 1)!default;
+$icon--direction:   $bootcss--direction!default;
+
+// Include icon font-face if it corresponds font-family
+@if is-sameas(nth($icon--font-face, 1), $icon--font-family) {
+  @include font-face($icon--font-face...);
+}
+
+%icon__base {
+  font-family: nth($icon--font-family, 1);
+}
+
+@if $icon--direction == ltr {
+  [data-icon]:before,
+  [data-icon-end]:after,
+  [data-icon-start]:before {
+    @extend %icon__base;
+  }
+  [data-icon]:before {
+    content: ' ' attr(data-icon) ' ';
+  }
+  [data-icon-end]:after {
+    content: ' ' attr(data-icon-end) ' ';
+  }
+  [data-icon-start]:before {
+    content: ' ' attr(data-icon-start) ' ';
+  }
+}
+@elseif $icon--direction == rtl {
+  [data-icon]:after,
+  [data-icon-end]:before,
+  [data-icon-start]:after {
+    @extend %icon__base;
+  }
+  [data-icon]:after {
+    content: ' ' attr(data-icon) ' ';
+  }
+  [data-icon-end]:before {
+    content: ' ' attr(data-icon-end) ' ';
+  }
+  [data-icon-start]:after {
+    content: ' ' attr(data-icon-start) ' ';
+  }
+}
+@else {
+  [dir="ltr"] [data-icon]:before,
+  [dir="ltr"] [data-icon-end]:after,
+  [dir="ltr"] [data-icon-start]:before,
+  [dir="rtl"] [data-icon]:after,
+  [dir="rtl"] [data-icon-end]:before,
+  [dir="rtl"] [data-icon-start]:after {
+    @extend %icon__base;
+  }
+  [dir="ltr"] [data-icon]:before,
+  [dir="rtl"] [data-icon]:after {
+    content: ' ' attr(data-icon) ' ';
+  }
+  [dir="ltr"] [data-icon-end]:after,
+  [dir="rtl"] [data-icon-end]:before {
+    content: ' ' attr(data-icon-end) ' ';
+  }
+  [dir="ltr"] [data-icon-start]:before,
+  [dir="rtl"] [data-icon-start]:after {
+    content: ' ' attr(data-icon-start) ' ';
+  }
+}

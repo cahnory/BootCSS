@@ -1,0 +1,61 @@
+@import '../settings/BootCSS';
+
+// Module settings
+$dropdown--direction:   $bootcss--direction!default;
+
+.dropdown {
+  @include -display(inline-block);
+  position: relative;
+}
+.dropdown__input {
+  @include outsight;
+}
+.dropdown__content {
+  // Standard
+  display: none;
+  position: absolute;
+  top: 100%;
+  z-index: 1;
+
+  @if $dropdown--direction == ltr {
+    left: 0;
+    .dropdown.\--end > & {
+      left: auto;
+      right: 0;
+    }
+  }
+  @elseif $dropdown--direction == rtl {
+    right: 0;
+    .dropdown.\--end > & {
+      right: auto;
+      left: 0;
+    }
+  }
+  @else {
+    [dir="ltr"] & {
+      left: 0;
+    }
+    [dir="ltr"] .dropdown.\--end > & {
+      left: auto;
+      right: 0;
+    }
+    [dir="rtl"] & {
+      right: 0;
+    }
+    [dir="rtl"] .dropdown.\--end > & {
+      right: auto;
+      left: 0;
+    }
+  }
+  .dropdown.\--up > & {
+    bottom: 100%;
+    top: auto;
+  }
+
+  @include script(
+    '&.\--expanded',
+    '.dropdown__input:checked ~ &'
+  ) {
+    display: block;
+  }
+}

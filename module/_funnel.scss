@@ -1,0 +1,307 @@
+@import '../settings/BootCSS';
+
+// Module settings
+// Funnel
+$funnel--min:         2!default;
+$funnel--max:         5!default;
+$funnel--counter:     funnel!default;
+$funnel--breakpoints: $bootcss--breakpoints!default;
+$funnel--direction:   $bootcss--direction!default;
+
+// Route and marker
+$funnel--label-style: counter($funnel--counter) '. '!default;
+$funnel--label-width: 100%!default;
+$funnel--route-size:  8px!default;
+$funnel--marker-size: 28px!default;
+
+// Colors
+$funnel--light: $color__disabled!default;
+$funnel--dark:  $color__text!default;
+
+@for $_length from $funnel--min through $funnel--max {
+  #{'.funnel.\--#{$_length}-steps'} {
+    @if is-number($funnel--label-width, '%') {
+      $_width:  to-percent(100 / ($funnel--label-width / 100 + $_length - 1));
+      $_margin: to-percent($_width * to-number($funnel--label-width / 200));
+
+      .funnel__step {
+        width: $_width;
+
+        &.\--end {
+          width: $_margin;
+        }
+      }
+
+      @if $funnel--direction == ltr {
+        .funnel__step:first-child {
+          margin-left:  $_margin;
+        }
+      }
+      @elseif $funnel--direction == rtl {
+        .funnel__step:first-child {
+          margin-right:  $_margin;
+        }
+      }
+      @else {
+        [dir="ltr"] & .funnel__step:first-child {
+          margin-left:  $_margin;
+        }
+        [dir="rtl"] & .funnel__step:first-child {
+          margin-right:  $_margin;
+        }
+      }
+    }
+    @else {
+      $_margin:  $funnel--label-width / 2;
+      $_width:   to-percent(100 / ($_length - 1));
+
+      .funnel__step {
+        width: $_width;
+
+        &.\--end {
+          width: $_margin;
+        }
+      }
+    }
+  }
+}
+
+.funnel,
+.funnel__step {
+  @include reset-list;
+}
+
+.funnel {
+  @include hold-float;
+  counter-reset: $funnel--counter;
+  position: relative;
+
+  @if not is-number($funnel--label-width, '%') {
+    margin: 0 $funnel--label-width / 2;
+  }
+}
+
+.funnel__step {
+  counter-increment: $funnel--counter;
+  position: relative;
+
+  @if $funnel--direction == ltr {
+    float: left;
+  }
+  @elseif $funnel--direction == rtl {
+    float: right
+  }
+  @else {
+    [dir="ltr"] & {
+      float: left;
+    }
+    [dir="rtl"] & {
+      float: right;
+    }
+  }
+
+  &.\--end {
+    float: none;
+    position: absolute;
+    
+    // Specifity increased over x-steps
+    @if is-number($funnel--label-width, '%') {
+      @if $funnel--direction == ltr {
+        right: 0;
+      }
+      @elseif $funnel--direction == rtl {
+        left: 0;
+      }
+      @else {
+        [dir="ltr"] & {
+          right: 0;
+        }
+        [dir="rtl"] & {
+          left: 0;
+        }
+      }
+    }
+    @else {
+      @if $funnel--direction == ltr {
+        left: 100%;
+      }
+      @elseif $funnel--direction == rtl {
+        right: 100%;
+      }
+      @else {
+        [dir="ltr"] & {
+          left: 100%;
+        }
+        [dir="rtl"] & {
+          right: 100%;
+        }
+      }
+    }
+  }
+
+  
+  // Route -------------------------------------------------- /
+  // Previous steps
+  &:before {
+    content: '\00A0';
+    @include rem(bottom left right, ($funnel--marker-size - $funnel--route-size) / 2);
+    display: block;
+    height: $funnel--route-size;
+    position: absolute;
+
+    background: $funnel--dark;
+  }
+  // Current and next steps
+  &.\--current:before, .\--current ~ &:before {
+    background: $funnel--light;
+  }
+  // Last step
+  &.\--end:before {
+    background: none;
+  }
+
+  // Marker ------------------------------------------------- /
+  // Previous and current steps
+  &:after {
+    @include -box-sizing(border-box);
+    @include -border-radius($funnel--marker-size);
+    @include rem(height width, $funnel--marker-size);
+    @include rem(border, $funnel--route-size solid $funnel--dark);
+    content: '\00A0';
+    display: block;
+    position: relative;
+
+    $_shift: -($funnel--marker-size / 2);
+    @if $funnel--direction == ltr {
+      @include rem(left, $_shift);
+    }
+    @elseif $funnel--direction == rtl {
+      @include rem(right, $_shift);
+    }
+    @else {
+      [dir="ltr"] & {
+        @include rem(left, $_shift); 
+      }
+      [dir="rtl"] & {
+        @include rem(right, $_shift); 
+      }
+    }
+
+
+    // Next steps
+    .\--current ~ & {
+      border-color: $funnel--light;
+    }
+  }
+}
+
+.funnel__label {
+  display: block;
+  position: relative;
+  width: $funnel--label-width;
+
+  color: $funnel--dark;
+  text-align: center;
+  
+  // Align middle
+  $_shift: -($funnel--label-width / 2);
+  @if $funnel--direction == ltr {
+    left: $_shift;
+  }
+  @elseif $funnel--direction == rtl {
+    right: $_shift;
+  }
+  @else {
+    [dir="ltr"] & {
+      left: $_shift;
+    }
+    [dir="rtl"] & {
+      right: $_shift;
+    }
+  }
+  
+  // Last step
+  @if is-number($funnel--label-width, '%') {
+    $_shift: -$funnel--label-width;
+    $_width: $funnel--label-width * 2;
+    .funnel__step.\--end & {
+      // Width is repeated, selectors are long
+      @if $funnel--direction == ltr {
+        left: $_shift;
+        width: $_width;
+      }
+      @elseif $funnel--direction == rtl {
+        right: $_shift;
+        width: $_width;
+      }
+      @else {
+        [dir="ltr"] & {
+          left: $_shift;
+          width: $_width;
+        }
+        [dir="rtl"] & {
+          right: $_shift;
+          width: $_width;
+        }
+      }
+    }
+  }
+
+  @if is-relevant($funnel--label-style, none) {
+    @if $funnel--direction == ltr {
+      &:before {
+        content: $funnel--label-style;
+      }
+    }
+    @elseif $funnel--direction == rtl {
+      &:after {
+        content: $funnel--label-style;
+      }
+    }
+    @else {
+      [dir="ltr"] &:before,
+      [dir="rtl"] &:after {
+        content: $funnel--label-style;
+      }
+    }
+  }
+
+  .\--current ~ .funnel__step & {
+    color: $funnel--light;
+  }
+}
+
+// --compact
+.funnel.\--compact {
+  // Show current step's label
+  .\--current .funnel__label {
+    opacity: 1;
+  }
+  // Hide labels, include current funnel hovered
+  .funnel__label, &:hover .funnel__label {
+    opacity: 0;
+  }
+  // Show hovered label
+  .funnel__step:hover .funnel__label {
+    opacity: 1;
+  }
+}
+
+@each $_breakpoint in $funnel--breakpoints {
+  @include media(breakpoint($_breakpoint)) {
+    #{'.funnel.\--#{$_breakpoint}-compact'} {
+      // Show current step's label
+      .\--current .funnel__label {
+        opacity: 1;
+      }
+      // Hide labels, include current funnel hovered
+      .funnel__label, &:hover .funnel__label {
+        opacity: 0;
+      }
+      // Show hovered label
+      .funnel__step:hover .funnel__label {
+        opacity: 1;
+      }
+    }
+  }
+}

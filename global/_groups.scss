@@ -1,0 +1,17 @@
+@include font-face(
+  'allerregular',
+  'aller_rg-webfont',
+  'allerregular'
+);
+
+%group--base, h1, h2, h3, h4, h5, h6 {
+  @include rem(margin, .2rem * $flow--line-height 0 0);
+  line-height: 1.2;
+  font-family: 'allerregular', $font-family--sans-serif;
+}
+h1 { font-size: 1em / $flow--font-size * 36 }
+h2 { font-size: 1em / $flow--font-size * 30 }
+h3 { font-size: 1em / $flow--font-size * 24 }
+h4 { font-size: 1em / $flow--font-size * 21 }
+h5 { font-size: 1em / $flow--font-size * 18 }
+h6 { font-size: 1em / $flow--font-size * 15 }

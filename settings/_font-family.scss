@@ -1,0 +1,16 @@
+// !Monospace
+$font-family--courier:  "Courier New", Courier, monospace!default;
+$font-family--monaco:   Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace!default;
+
+// !Sans serif
+$font-family--arial:    Arial, "Arial Unicode MS", Helvetica, MyriadPro, Freesans, "Nimbus Sans L", "Liberation Sans", sans-serif!default;
+$font-family--lucida:   "Lucida Sans", "Lucida Grande", $font-family--arial!default;
+
+// !Serif
+$font-family--georgia:  Georgia, "New Century Schoolbook", "Nimbus Roman No9 L", serif!default;
+
+
+// !Family default
+$font-family--monospace:    $font-family--monaco!default;
+$font-family--sans_serif:   $font-family--arial!default;
+$font-family--serif:        $font-family--georgia!default;

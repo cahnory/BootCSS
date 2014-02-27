@@ -1,0 +1,8 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+html { font-size: 100% / 16 * $plasticss__rem__size; }
+body {
+  font: #{.1em * $flow--font-size}/#{$flow--line-height / $flow--font-size} $font-family--sans-serif;
+}

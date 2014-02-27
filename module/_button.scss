@@ -1,0 +1,143 @@
+@import '../settings/BootCSS';
+
+$button--radius:      3px!default;
+$button--color:       #FFF!default;
+$button--background:  $color__neutral!default;
+$button--direction:   $bootcss--direction!default;
+$button--breakpoints: join(none, $bootcss--breakpoints)!default;
+$button--colors:
+  primary $color__primary,
+  safe    $color__safe,
+  risky   $color__risky,
+  fatal   $color__fatal,
+  tender  $color__tender
+  !default;
+
+@mixin button--color($name, $background, $color: null) {
+  $_selector: if(is-string($name), '&.\--#{$name}', '&');
+
+  #{$_selector} {
+    &:hover {
+      @if not is-string($name) or is-relevant($background, $button--background) { 
+        background-color: mix($background, #FFF, 90);
+      }
+    }
+    &, &:focus, &:active, &.\--active {
+      @if not is-string($name) or is-relevant($background, $button--background) { 
+        background-color: $background;
+      }
+      @if is-relevant($color, $button--color) {
+        color: $color;
+      }
+    }
+  }
+}
+
+.button {
+  @include reset-button;
+  @if is-relevant($button--radius) and $button--radius != 0 {
+    @include -border-radius($button--radius);
+  }
+  @include -box-shadow(
+    // High light
+    inset 0 1px rgba(255,255,255,.1),
+    // Soft light
+    inset 0 -1px rgba(0,0,0,.1),
+    // Soft bevel
+    inset 0 -8px 8px rgba(0,0,0,.1),
+    // Drop shadow
+    0 1px 1px rgba(0,0,0,.2)
+  );
+  color: $button--color;
+  padding: .3em .8em;
+  position: relative;
+
+
+  // Colors
+  @include button--color(null, $button--background);
+  @each $button--color in $button--colors {
+    @include button--color($button--color...);
+  }
+
+
+
+  // States
+  &:focus {
+    @include -box-shadow(
+      // Focus light border
+      inset 0 0 0 3px rgba(255,255,255,.5),
+      // High light
+      inset 0 1px rgba(255,255,255,.1),
+      // Soft light
+      inset 0 -1px rgba(0,0,0,.1),
+      // Soft bevel
+      inset 0 -8px 8px rgba(0,0,0,.1)
+    );
+    outline: none;
+  }
+  &:active, &.\--active {
+    @include -box-shadow(
+      // Inside shadow
+      inset 0 2px 8px rgba(0,0,0,.2)
+    );
+    text-shadow: 0 2px 3px rgba(0,0,0,.2);
+    outline: none;
+  }
+  @include separate('&.\--disabled, &[disabled]', '&:disabled') {
+    &, &:focus, &:hover, &:active, &.\--active {
+      @include -box-shadow(none);
+      background: $color__disabled;
+      color: #FFF;
+      cursor: default;
+      text-shadow: none;
+    }
+  }
+
+
+  // Modifiers
+  &.\--block {
+    display: block;
+    width: 100%;
+  }
+  @if is-relevant($button--radius) and $button--radius != 0 {
+    &.\--middle {
+      @include -border-radius(0);
+    }
+    @if $button--direction == ltr {
+      &.\--start {
+        @include -border-radius($button--radius 0 0 $button--radius);
+      }
+      &.\--end {
+        @include -border-radius(0 $button--radius $button--radius 0);
+      }
+    }
+    @elseif $button--direction == rtl {
+      &.\--start {
+        @include -border-radius(0 $button--radius $button--radius 0);
+      }
+      &.\--end {
+        @include -border-radius($button--radius 0 0 $button--radius);
+      }
+    }
+    @else {
+      [dir="ltr"] &.\--start,
+      [dir="rtl"] &.\--end {
+        @include -border-radius($button--radius 0 0 $button--radius);
+      }
+      [dir="ltr"] &.\--end,
+      [dir="rtl"] &.\--start {
+        @include -border-radius(0 $button--radius $button--radius 0);
+      }
+    }
+  }
+}
+
+// Hide label by media (and smaller)
+@each $_breakpoint in $button--breakpoints {
+  @include media(breakpoint($_breakpoint)) {
+    $_selector: if($_breakpoint == none, '', #{'#{$_breakpoint}-'});
+   .button__label.\--#{$_selector}hide {
+      @include outsight;
+    }
+  }
+}

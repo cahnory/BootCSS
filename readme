@@ -1,0 +1,28 @@
+#Support for IE8 allows
+
+##selectors and pseudo elements
+
+- ~
+- +
+- \>
+- []
+- :first-child
+- :before
+- :after
+
+##Properties
+
+- box-sizing
+
+
+#Support for IE8 disallows
+
+##selectors and pseudo elements
+
+- :not
+- :target
+- :empty
+- :last-child
+- :nth-*
+- :only-*
+- :root

@@ -1,0 +1,67 @@
+/* module/grid */
+$grid-length:       12!default;
+$grid-width:        100%!default;
+$grid-spacing:       8px!default;
+$grid-unit:         $grid-width / $grid-length!default;
+$grid-breakpoints:  (lt-normal, lt-medium)!default;
+
+.grid {
+  display: block;
+}
+.grid__cell {
+  @include -box-sizing(border-box);
+  display: inline-block;
+  vertical-align: top;
+  width: $grid-unit;
+
+  // Gutter control
+  @if $grid-spacing > 0 {
+    padding: 0 $grid-spacing;
+    &.\--no-spacing {
+      padding: 0;
+    }
+    &.\--start-spacing {
+      padding: 0 0 0 $grid-spacing;
+    }
+    &.\--end-spacing {
+      padding: 0 $grid-spacing 0 0;
+    }
+  }
+}
+
+// All media Jump and span
+@for $i from 1 through $grid-length - 1 {
+  .grid__cell.\--jump-#{$i} {
+    margin-left: $grid-unit;
+  }
+  .grid__cell.\--span-#{$i + 1} {
+    width: $grid-unit * ($i + 1);
+  }
+}
+
+@each $_breakpoint in $grid-breakpoints {
+  @include media(breakpoint($_breakpoint)) {
+    // Gutter control
+    @if $grid-spacing > 0 {
+      .grid__cell.\--#{$_breakpoint}-no-spacing {
+        padding: 0;
+      }
+      .grid__cell.\--#{$_breakpoint}-start-spacing {
+        padding: 0 0 0 $grid-spacing;
+      }
+      .grid__cell.\--#{$_breakpoint}-end-spacing {
+        padding: 0 $grid-spacing 0 0;
+      }
+    }
+
+    // Medium media Jump and span
+    @for $i from 1 through $grid-length - 1 {
+      .grid__cell.\--#{$_breakpoint}-jump-#{$i} {
+        margin-left: $grid-unit;
+      }
+      .grid__cell.\--#{$_breakpoint}-span-#{$i + 1} {
+        width: $grid-unit * ($i + 1);
+      }
+    }
+  }
+}
