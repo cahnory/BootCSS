@@ -1,0 +1,33 @@
+@import '../settings/bootcss';
+
+// Module options
+$menu--direction: $bootcss--direction!default;
+
+.menu, .menu__item, .menu__node {
+  @include reset-list;
+}
+.menu, .menu__node {
+  @include hold-float;
+}
+.menu__item {
+  .menu.\--inline > & {
+    @if $menu--direction == ltr {
+      float: left;
+    }
+    @elseif $menu--direction == rtl {
+      float: right;
+    }
+    @else {
+      [dir="ltr"] & {
+        float: left;
+      }
+      [dir="rtl"] & {
+        float: right;
+      }
+    }
+  }
+}
+.menu__button {
+  @include reset-button;
+  display: block;
+}
