@@ -1,2 +1,5 @@
-@include breakpoint(normal, 1024px);
-@include breakpoint(medium, 512px);
+$bootcss--normal-breakpoint: 1024px!default;
+$bootcss--medium-breakpoint: 512px!default;
+
+@include breakpoint(normal, $bootcss--normal-breakpoint);
+@include breakpoint(medium, $bootcss--medium-breakpoint, $bootcss--normal-breakpoint);

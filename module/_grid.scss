@@ -1,9 +1,11 @@
-/* module/grid */
+@import '../settings/BootCSS';
+
+// Module options
 $grid-length:       12!default;
 $grid-width:        100%!default;
-$grid-spacing:       8px!default;
+$grid-spacing:      8px!default;
 $grid-unit:         $grid-width / $grid-length!default;
-$grid-breakpoints:  (lt-normal, lt-medium)!default;
+$grid-breakpoints:  $bootcss--breakpoints!default;
 
 .grid {
   display: block;
