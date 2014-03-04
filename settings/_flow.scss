@@ -1,3 +1,12 @@
+$flow--margin:      1!default;
+$flow--margin-head: 2 1!default;
 $flow--font-size:   14!default;
 $flow--line-coef:   1.5!default;
 $flow--line-height: $flow--line-coef * $flow--font-size!default;
+
+@if (length($flow--margin) < 2) {
+  $flow--margin: $flow--margin $flow--margin;
+}
+@if (length($flow--margin-head) < 2) {
+  $flow--margin-head: $flow--margin-head $flow--margin-head;
+}
