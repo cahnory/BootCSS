@@ -9,7 +9,14 @@ $grid-breakpoints:  $bootcss--breakpoints!default;
 
 .grid {
   display: block;
+
+  @if $grid-spacing > 0 {
+    &.\--no-spacing {
+      margin: 0 (-$grid-spacing);
+    }
+  }
 }
+
 .grid__cell {
   @include -box-sizing(border-box);
   display: inline-block;
@@ -45,6 +52,9 @@ $grid-breakpoints:  $bootcss--breakpoints!default;
   @include media(breakpoint($_breakpoint)) {
     // Gutter control
     @if $grid-spacing > 0 {
+      .grid.\--#{$_breakpoint}-no-spacing {
+        margin: 0 (-$grid-spacing);
+      }
       .grid__cell.\--#{$_breakpoint}-no-spacing {
         padding: 0;
       }
