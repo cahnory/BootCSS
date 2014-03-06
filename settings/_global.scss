@@ -14,20 +14,13 @@ $global__flow:        1 1!default;
 // Global > Groups ------------------------------------------ //
 $global__head--flow:          2 1!default;
 $global__head--font-face:     null!default;
+$global__head--font-family:   if(is-relevant($global__head--font-face), nth($global__head--font-face, 1), null), $global--font-family!default;
 $global__head--ease:          ease-in!default;
 $global__head--min-coef:      1.125!default;
 $global__head--max-coef:      2.25!default;
 $global__head--min-font-size: $global--font-size * $global__head--min-coef!default;
 $global__head--max-font-size: $global--font-size * $global__head--max-coef!default;
 
-// Font-family with font-face
-@if is-relevant($global__head--font-face) {
-  $global__head--font-family: nth($global__head--font-face, 1), $global--font-family!default;
-}
-// Font-family without font-face
-@else {
-  $global__head--font-family: $global--font-family!default;
-}
 @if (length($global__head--flow) < 2) {
   $global__head--flow: $global__head--flow $global__head--flow;
 }
