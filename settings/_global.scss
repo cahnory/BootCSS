@@ -8,7 +8,7 @@ $global--font-family: $font-family--sans-serif!default;
 $global__flow:        1 1!default;
 
 @if (length($global__flow) < 2) {
-  $flow--margin: $global__flow $global__flow;
+  $global__flow: $global__flow $global__flow;
 }
 
 // Global > Groups ------------------------------------------ //
@@ -28,7 +28,6 @@ $global__head--max-font-size: $global--font-size * $global__head--max-coef!defau
 @else {
   $global__head--font-family: $global--font-family!default;
 }
-
-@if (length($flow--margin-head) < 2) {
-  $flow--margin-head: $flow--margin-head $flow--margin-head;
+@if (length($global__head--flow) < 2) {
+  $global__head--flow: $global__head--flow $global__head--flow;
 }
