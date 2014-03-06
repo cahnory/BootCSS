@@ -1,7 +1,7 @@
-@import '../settings/flow';
+@import '../settings/global';
 
 %section--base, blockquote, figure, figcaption, form, dl, hr, ol, p, pre, ul {
-  @include rem(margin, .1rem * nth($flow--margin, 1) * $flow--line-height 0 .1rem * nth($flow--margin, 2) * $flow--line-height);
+  @include rem(margin, .1rem * nth($global--flow, 1) * $global--line-height 0 .1rem * nth($global--flow, 2) * $global--line-height);
 }
 figure img {
   display: block;

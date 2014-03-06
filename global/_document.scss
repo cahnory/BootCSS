@@ -1,4 +1,4 @@
-$global--font-family: $font-family--sans-serif!default;
+@import '../settings/global';
 
 html, body {
   margin: 0;
@@ -6,5 +6,5 @@ html, body {
 }
 html { font-size: 100% / 16 * $plasticss__rem__size; }
 body {
-  font: #{.1em * $flow--font-size}/#{$flow--line-height / $flow--font-size} $global--font-family;
+  font: #{.1em * $global--font-size}/#{$global--line-height / $global--font-size} $global--font-family;
 }

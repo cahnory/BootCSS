@@ -1,0 +1,34 @@
+@import 'font-family';
+
+// Global > document and sections --------------------------- //
+$global--font-size:   16!default;
+$global--line-coef:   1.5!default;
+$global--line-height: round($global--line-coef * $global--font-size / 2) * 2!default;
+$global--font-family: $font-family--sans-serif!default;
+$global__flow:        1 1!default;
+
+@if (length($global__flow) < 2) {
+  $flow--margin: $global__flow $global__flow;
+}
+
+// Global > Groups ------------------------------------------ //
+$global__head--flow:          2 1!default;
+$global__head--font-face:     null!default;
+$global__head--ease:          ease-in!default;
+$global__head--min-coef:      1.125!default;
+$global__head--max-coef:      2.25!default;
+$global__head--min-font-size: $global--font-size * $global__head--min-coef!default;
+$global__head--max-font-size: $global--font-size * $global__head--max-coef!default;
+
+// Font-family with font-face
+@if is-relevant($global__head--font-face) {
+  $global__head--font-family: nth($global__head--font-face, 1), $global--font-family!default;
+}
+// Font-family without font-face
+@else {
+  $global__head--font-family: $global--font-family!default;
+}
+
+@if (length($flow--margin-head) < 2) {
+  $flow--margin-head: $flow--margin-head $flow--margin-head;
+}

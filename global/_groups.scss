@@ -1,6 +1,4 @@
-// Module options
-$global__head--font-face:   'allerregular', 'aller_rg-webfont', 'allerregular'!default;
-$global__head--font-family: nth($global__head--font-face, 1), $font-family--sans-serif!default;
+@import '../settings/global';
 
 // Include font-face if it corresponds to font-family
 @if is-sameas(nth($global__head--font-face, 1), nth($global__head--font-family, 1)) {
@@ -8,14 +6,18 @@ $global__head--font-family: nth($global__head--font-face, 1), $font-family--sans
 }
 
 %group--base, h1, h2, h3, h4, h5, h6 {
-  @include rem(margin, .1rem * nth($flow--margin-head, 1) * $flow--line-height 0 .1rem * nth($flow--margin-head, 2) * $flow--line-height);
-  @include rem(margin, .2rem * $flow--line-height 0 0);
+  @include rem(margin, .1rem * nth($global__head--flow, 1) * $global--line-height 0 .1rem * nth($global__head--flow, 2) * $global--line-height);
+  @include rem(margin, .2rem * $global--line-height 0 0);
   line-height: 1.2;
-  font-family: $global__head--font-family;
+
+  @if is-relevant($global--font-family, $global--font-family) {
+    font-family: $global__head--font-family;
+  }
 }
-h1 { font-size: 1em / $flow--font-size * 36 }
-h2 { font-size: 1em / $flow--font-size * 30 }
-h3 { font-size: 1em / $flow--font-size * 24 }
-h4 { font-size: 1em / $flow--font-size * 21 }
-h5 { font-size: 1em / $flow--font-size * 18 }
-h6 { font-size: 1em / $flow--font-size * 15 }
+
+h1 { font-size: to(rem, ease(5, $global__head--min-font-size, $global__head--max-font-size, 5, $global__head--ease), .1) }
+h2 { font-size: to(rem, ease(4, $global__head--min-font-size, $global__head--max-font-size, 5, $global__head--ease), .1) }
+h3 { font-size: to(rem, ease(3, $global__head--min-font-size, $global__head--max-font-size, 5, $global__head--ease), .1) }
+h4 { font-size: to(rem, ease(2, $global__head--min-font-size, $global__head--max-font-size, 5, $global__head--ease), .1) }
+h5 { font-size: to(rem, ease(1, $global__head--min-font-size, $global__head--max-font-size, 5, $global__head--ease), .1) }
+h6 { font-size: to(rem, ease(0, $global__head--min-font-size, $global__head--max-font-size, 5, $global__head--ease), .1) }
