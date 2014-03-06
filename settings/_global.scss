@@ -5,14 +5,10 @@ $global--font-size:   16!default;
 $global--line-coef:   1.5!default;
 $global--line-height: round($global--line-coef * $global--font-size / 2) * 2!default;
 $global--font-family: $font-family--sans-serif!default;
-$global__flow:        1 1!default;
-
-@if (length($global__flow) < 2) {
-  $global__flow: $global__flow $global__flow;
-}
+$global__flow:        1!default;
 
 // Global > Groups ------------------------------------------ //
-$global__head--flow:          2 1!default;
+$global__head--flow:          side($global__flow, top) * 2 side($global__flow, right)!default;
 $global__head--font-face:     null!default;
 $global__head--font-family:   if(is-relevant($global__head--font-face), nth($global__head--font-face, 1), null), $global--font-family!default;
 $global__head--ease:          ease-in!default;
@@ -20,7 +16,3 @@ $global__head--min-coef:      1.125!default;
 $global__head--max-coef:      2.25!default;
 $global__head--min-font-size: $global--font-size * $global__head--min-coef!default;
 $global__head--max-font-size: $global--font-size * $global__head--max-coef!default;
-
-@if (length($global__head--flow) < 2) {
-  $global__head--flow: $global__head--flow $global__head--flow;
-}
