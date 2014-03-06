@@ -1,2 +1,9 @@
-@include url(img,   '../img/');
-@include url(font,  '../font/');
+$assets--img-path:  '../img/'!default;
+$assets--font-path: '../font/'!default;
+
+@if is-relevant($assets--img-path) {
+  @include url(img, $assets--img-path);
+}
+@if is-relevant($assets--font-path) {
+  @include url(font, $assets--font-path);
+}
