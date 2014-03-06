@@ -1,9 +1,0 @@
-$bootcss--normal-breakpoint: 1024px!default;
-$bootcss--medium-breakpoint: 512px!default;
-
-@if is-relevant($bootcss--normal-breakpoint) {
-  @include breakpoint(normal, $bootcss--normal-breakpoint);
-}
-@if is-relevant($bootcss--medium-breakpoint) {
-  @include breakpoint(medium, $bootcss--medium-breakpoint);
-}

@@ -1,4 +1,4 @@
-@import '../settings/global';
+@import '../setting/global';
 
 // Include font-face if it corresponds to font-family
 @if is-sameas(nth($global__head--font-face, 1), nth($global__head--font-family, 1)) {

@@ -1,4 +1,4 @@
-@import '../settings/global';
+@import '../setting/global';
 
 %section--base, blockquote, figure, figcaption, form, dl, hr, ol, p, pre, ul {
   @include rem(margin, .1rem * side($global--flow, top) * $global--line-height 0 .1rem * side($global--flow, right) * $global--line-height);

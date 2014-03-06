@@ -1,0 +1,9 @@
+$breakpoint--normal: 1024px!default;
+$breakpoint--medium: 512px!default;
+
+@if is-relevant($breakpoint--normal) {
+  @include breakpoint(normal, $breakpoint--normal);
+}
+@if is-relevant($breakpoint--medium) {
+  @include breakpoint(medium, $breakpoint--medium);
+}
