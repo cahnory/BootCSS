@@ -8,7 +8,7 @@ $global--font-family: $font-family--sans-serif!default;
 $global__flow:        1!default;
 
 // Global > Groups ------------------------------------------ //
-$global__head--flow:          side($global__flow, top) * 2 side($global__flow, right)!default;
+$global__head--flow:          nth-side($global__flow, 1) * 2 nth-side($global__flow, 2)!default;
 $global__head--font-face:     null!default;
 $global__head--font-family:   if(is-relevant($global__head--font-face), nth($global__head--font-face, 1), null), $global--font-family!default;
 $global__head--ease:          ease-in!default;

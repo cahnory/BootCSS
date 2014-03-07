@@ -6,7 +6,7 @@
 }
 
 %group--base, h1, h2, h3, h4, h5, h6 {
-  @include rem(margin, .1rem * side($global__head--flow, top) * $global--line-height 0 .1rem * side($global__head--flow, right) * $global--line-height);
+  @include rem(margin, .1rem * nth-side($global__head--flow, 1) * $global--line-height 0 .1rem * nth-side($global__head--flow, 2) * $global--line-height);
   line-height: 1.2;
 
   @if is-relevant($global__head--font-family, $global--font-family) {
